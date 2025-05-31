@@ -79,7 +79,7 @@
         </div>
       </div>
     </section>
-    
+ 
     <section class="section">
       <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
@@ -88,42 +88,132 @@
           </div>
         </div>
         <div class="content has-text-justified">
-          Radio interferometry arrays—such as the VLA, ALMA, and the EHT—are composed of multiple radio telescopes operating in synchrony. These telescopes, often separated by vast distances, work together to observe astronomical radio sources with a resolution far beyond what a single dish could achieve. Each pair of telescopes samples a specific spatial frequency: closer pairs detect broad, smooth features, while distant pairs capture finer details. The Event Horizon Telescope (EHT), for example, is a global-scale array that leverages the entire Earth as a virtual dish. Since the placement of telescopes directly influences image resolution and quality, optimizing their configuration is essential. This project introduces an interactive visualization tool that simulates the image formation process in interferometric arrays. It enables scientists and educators to experiment with different configurations—ground-based or satellite-based—without the cost or constraints of real-world deployment. By visualizing UV coverage and image reconstruction outcomes, this tool supports both informed scientific decision-making and broader educational engagement.
+          Radio interferometry arrays such as the Very Large Array (VLA), Atacama Large Millimeter/submillimeter Array (ALMA), and Event Horizon Telescope (EHT) are made up of a number of antennas that are distributed over large distances, but used collectively as a single, synthetic aperture. The arrays use principles in interferometry to achieve angular resolution much higher than each individual antenna would be able to achieve separately. By correlating signals from every pair of antennas, they construct high-resolution images of the radio sky, which reveal structure on scales from galactic jets to black hole shadows. This project provides an interactive visualization tool aimed at helping both scientists and educators explore how different array configurations affect imaging quality.
+          <br>
+          <br>
+          Visualization in radio astronomy is not just crucial to interpreting outcomes, but also central to decision-making for array planning and instruction—linking complicated Fourier-based theory of imaging and spatial intuition. This software employs exploration and interactivity to enhance comprehension of interferometry's ability and limitation, notably in imaging from partial data with algorithms such as CLEAN.
         </div>
         <hr>
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
-            <h2 class="title is-3">Background &amp; Motivation</h2>
+            <h2 class="title is-3">Motivation</h2>
           </div>
         </div>
         <div class="content has-text-justified">
-          The EHT’s groundbreaking image of a black hole was the result of decades of work and over $60 million in funding. However, the addition of each new telescope requires substantial investment, both financially and logistically. The scientific benefit of a new telescope depends heavily on its position relative to the existing array, making efficient placement critical. Beyond cost, geopolitical factors can limit where telescopes can be built. 
+          The EHT telescope project is expensive, with the entire project costing $60 million dollars.  The way in which this project captures images of black holes is by linking radio telescopes around the world to form an Earth-sized telescope. More telescopes allow for higher resolution. However, adding more and more telescopes will require more and more money. Depending on the region at which the telescope is placed relative to all the other telescopes, the image generated will be different. The quality of the image depends on where the telescope is located relative to others. When these telescopes are placed strategically, more of the sky can be captured, resulting in higher resolution and higher image quality.
           <br>
           <br>
-          Some regions restrict such installations due to political boundaries or lack of infrastructure, introducing further constraints in array planning. Given these challenges, there is a clear need for a system that allows scientists to simulate and visualize how new configurations will impact image quality before making costly decisions. This tool addresses that need, offering a way to explore telescope placement, satellite involvement, and signal processing strategies virtually. By enabling this kind of preemptive analysis, the tool can help guide the development of next-generation interferometers with greater efficiency and lower risk.          <br>
-          
+          There are also geopolitical tensions that can affect the placement of telescopes. Some regions may prohibit the placement of telescopes, adding even more constraints to the placement of telescopes. Construction is a time-consuming process as well, so a simulation is extremely helpful as it allows for the testing of various different configurations without having to build physical telescopes.
+          <br>
+          <br>
+          The motivation of this project is to simulate the image generated by telescope arrays, preventing the need to build telescopes to see resolution improvement.
         </div>
-        <section class="hero teaser">
-          <div class="container is-max-desktop">           
-              <img src="static/images/eht-lead.jpg" alt="Teaser animation" width="600" style="border-radius: 10px;">     
-          </div>
-        </section>
         <hr>
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3">Introduction</h2>
           </div>
         </div>
-        <div class="content has-text-justified">
-          Interferometry is a technique in radio astronomy that combines the signals from multiple radio antennas to form a single, high-resolution image of a distant source. Each antenna in an array observes the same celestial object from a slightly different angle. By correlating these signals, the array achieves a resolution equivalent to that of a telescope the size of the maximum distance between the antennas—known as the baseline. This technique allows astronomers to resolve structures that would otherwise be impossible to distinguish with individual telescopes. Arrays like ALMA and the VLA utilize this method on a continental scale, while the EHT operates globally. Some components of the EHT, such as ALMA itself, are interferometers on their own, consisting of dozens of antennas that work together as a local array before contributing to the larger network.          <br>
-          <br>
-          One of the main challenges in radio interferometry is that it does not capture an image directly. Instead, it samples spatial frequency components of the sky, which are then processed to reconstruct the original image. Due to incomplete sampling—since no array can cover all possible baselines—this reconstruction is imperfect and often includes noise or artifacts. To address this, algorithms like CLEAN are used. CLEAN iteratively identifies the strongest signal points (or "peaks") in the observed image and subtracts them, helping to reveal the underlying source structure more clearly. In advanced imaging, the ehtim library is also employed to simulate and reconstruct images with realistic constraints.          
-        </div>
-        <section class="hero teaser">
-          <div class="container is-max-desktop">           
-              <img src="static/images/Earth_gif.gif" alt="Teaser animation" width="300" style="border-radius: 10px;">     
+        
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h3 class="title is-4">2.1 Radio Interferometry: Principles and Operation</h3>
           </div>
-        </section>
+        </div>
+        <div class="content has-text-justified">
+        Interferometry is where you superimpose multiple wave signals to get spatial information about a distant source. In the double slit experiment, light through two slits produces an interference pattern due to constructive and destructive interference between waves. Fringe spacing depends on slit separation and wavelength.
+          <br><br>
+          <div class="columns is-centered">
+            <div class="column is-10">
+              <figure>
+                <img src="static/images/doubleslit.svg" alt="Double Slit Experiment">
+                <figcaption>The Double Slit Experiment. Image credit: Wikipedia.</figcaption>
+              </figure>
+            </div>
+          </div>
+        <br>
+        For radio interferometry, the slits are replaced with radio antennas. Two antennas a distance apart (a baseline) catch the same wave at nearly the same time, but not exactly, and they produce a phase difference. This time delay, τ (tau), is used to calculate the source’s position on the sky. The bigger the baseline, the better the resolution of the image. One of the main differences from the double-slit experiment is that radio interferometry does the opposite: instead of deconstructing patterns to infer structure, we observe several interference patterns (visibilities) and use those to construct an image of the sky.
+        <br><br>
+          <div class="columns is-centered">
+            <div class="column is-8">
+              <figure>
+                <img src="static/images/interferometry.gif" alt="Radio Interferometry Principle">
+                <figcaption>Radio interferometry combines signals from multiple antennas to achieve higher resolution. Image credit: Max Planck Institute for Gravitational Physics.</figcaption>
+              </figure>
+            </div>
+          </div>
+          <br>
+          Notable interferometer arrays include the Very Large Array (VLA) in New Mexico with 27 antennas, the Atacama Large Millimeter/submillimeter Array (ALMA) in Chile with 66 antennas, and the Event Horizon Telescope (EHT) - a global network that captured the first image of a black hole. Interestingly, ALMA itself is an interferometer that also serves as a single element within the larger EHT array, demonstrating the hierarchical nature of modern radio astronomy.
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h3 class="title is-4">2.2 Arrays and Baselines</h3>
+          </div>
+        </div>
+        <div class="content has-text-justified">
+          A radio interferometric array is a network of antennas arranged over some geometry. Famous examples include:
+
+          <ul>
+            <li>VLA – Y-shaped array in New Mexico</li>
+            <li>ALMA – High-altitude array in Chile</li>
+            <li>EHT – Global array spanning continents</li>
+          </ul>
+          Some instruments, such as ALMA, are interferometers on their own, but also function as sub-arrays within larger systems like the EHT.
+          <br><br>
+          <div class="columns is-centered">
+            <div class="column is-10">
+              <figure>
+                <img src="static/images/Earth_gif.gif" alt="EHT Observation Visualization">
+                <figcaption>Visualization of the EHT. Image credit: EHT Collaboration.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+        
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h3 class="title is-4">2.3 Image Reconstruction and the CLEAN Algorithm</h3>
+          </div>
+        </div>
+        <div class="content has-text-justified">
+          Converting interferometer data into a recognizable image is a big challenge. When antennas sample the visibility function, they do so incompletely - some spatial frequencies are not sampled due to the finite number of antennas and their physical arrangement. This incomplete sampling results in artifacts in the reconstructed image, often called the "dirty image."
+          <br><br>
+          Astronomers use sophisticated reconstruction algorithms to address this problem, with CLEAN being one of the most popular. Developed by Jan Högbom in 1974, CLEAN works on the principle that most astronomical images can be represented as a collection of point sources. The algorithm iterates:
+          <br><br>
+          Transforming interferometer data into recognizable images presents a significant challenge. When antennas sample the visibility function, they do so incompletely - certain spatial frequencies remain unsampled due to the finite number of antennas and their physical arrangement. This incomplete sampling results in artifacts in the reconstructed image, often called the "dirty image."
+          <br><br>
+          <ol>
+            <li>Find the brightest point in the dirty image</li>
+            <li>Subtract a fraction of that brightness (controlled by the "loop gain" parameter)</li>
+            <li>Record the position and brightness of that point</li>
+            <li>Repeat until a specified threshold is reached</li>
+          </ol>
+          <br>
+          The final "CLEAN image" is constructed by convolving the recorded points with an idealized beam pattern and adding back residual noise. Our tool allows you to adjust CLEAN parameters and see the effect immediately.
+        </div>
+        
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h3 class="title is-4">2.4 Future of Interferometry: Space-Based Elements</h3>
+          </div>
+        </div>
+        <div class="content has-text-justified">
+          The next technological evolution in radio interferometry is to take arrays out into space. Concepts like the projected Black Hole Explorer would locate radio telescopes in low Earth orbit, augmented by ground stations to provide unprecedented baselines and resolution.
+          <br><br>
+          Space-based interferometry possesses certain major advantages, including baselines that are larger than Earth's diameter and observation of frequency bands masked by Earth's atmosphere. Our program specifically includes the capability of simulating satellite-based telescopes such that one can analyze the influence of orbital parameters on image quality.
+          <br><br>
+          The next frontier in radio interferometry involves extending arrays into space. Concepts like the proposed Black Hole Explorer would place radio telescopes in low Earth orbit, working in concert with ground-based facilities to achieve unprecedented baselines and resolution.
+          <br><br>
+          <div class="columns is-centered">
+            <div class="column is-8">
+              <figure>
+                <img src="static/images/bhex.jpg" alt="Space-Based Interferometry">
+                <figcaption>Concept illustration of a space-based interferometer working with ground stations. Image credit: Black Hole Explorer.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
         <hr>
         <div class="columns is-centered has-text-centered">
           <div class="column is-four-fifths">
@@ -131,9 +221,13 @@
           </div>
         </div>
         <div class="content has-text-justified">
-          Our tool allows users to simulate the image produced by a radio interferometry array with a high degree of flexibility and interactivity. Users can upload a custom model image—such as a black hole simulation or a collection of point sources—and adjust various array parameters including wavelength and observation duration. Telescope positions can be added, removed, or moved freely, including the option to incorporate satellite-based telescopes. Satellite-specific parameters such as eccentricity and arc perigee are also customizable. Additionally, users can modify the source direction and fine-tune the parameters of the CLEAN algorithm, such as loop gain and threshold, to see how these affect the reconstructed image.          <br>
+          Our tool allows users to simulate the image produced by an interferometry array. 
           <br>
-          The tool provides multiple outputs to help interpret the simulated configuration. These include the beam pattern, the Fourier transform of the input image, the UV coverage corresponding to the array layout, and the resulting dirty image. This dirty image is then processed using both the CLEAN algorithm and the ehtim pipeline to produce refined reconstructions. Through this simulation and visualization workflow, the tool enables deeper insight into how different configurations influence final image quality.
+          <br>
+          There are numerous inputs to the tool. The model image can be changed by uploading any image (such as a blackhole simulation image or a collection of various point sources). Array parameters (such as wavelength and duration) can be changed. Telescope locations can be moved, deleted or added (including the addition of satellites). Satellite parameters can be changed (such as eccentricity and arc perigee). Source direction can be changed as well. Additionally, as the image will be put through the CLEAN algorithm, the parameters of the CLEAN algorithm can be updated as well (such as the loop gain or the threshold).
+          <br>
+          <br>
+          In terms of outputs, the beam pattern, the fourier transform of the model image, the UV coverage and the dirty image generated by the pattern can be viewed. The dirty image will be put through the CLEAN algorithm and the ehtim algorithm. The outputs can be viewed as well.
           <br>
           <br>
           <video controls muted loop>
@@ -145,7 +239,7 @@
         <br>
 
     </section>
-
+  
     <section class="section">
       <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
@@ -207,9 +301,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-      // Initialize EmailJS with your User ID
-      emailjs.init('XZ3rtnOZg0S8kq68e'); // Replace with your actual User ID
-      console.log('EmailJS initialized'); // Debugging: Confirm initialization
+      emailjs.init('XZ3rtnOZg0S8kq68e');
+      console.log('EmailJS initialized');
 
       document.getElementById('contact-form').addEventListener('submit', function (event) {
         event.preventDefault();
@@ -221,11 +314,11 @@
           message: formData.get('message'),
         };
 
-        console.log('Form Data:', data); // Debugging: Log form data
+        console.log('Form Data:', data);
 
-        emailjs.send('service_sxljepi', 'template_1fg7wfl', data) // Replace with your service_id and template_id
+        emailjs.send('service_sxljepi', 'template_1fg7wfl', data);
           .then((response) => {
-            console.log('EmailJS Response:', response); // Debugging: Log success response
+            console.log('EmailJS Response:', response);
             const notification = document.getElementById('confirmation-message');
             notification.textContent = 'Your inquiry has been sent successfully!';
             notification.className = 'notification is-success';
@@ -233,7 +326,7 @@
             event.target.reset();
           })
           .catch((error) => {
-            console.error('EmailJS Error:', error); // Debugging: Log error response
+            console.error('EmailJS Error:', error);
             const notification = document.getElementById('confirmation-message');
             notification.textContent = 'Failed to send your inquiry. Please try again.';
             notification.className = 'notification is-danger';
