@@ -185,7 +185,9 @@
           </div>
         </div>
         <div class="content has-text-justified">
-          Converting interferometer data into a recognizable image is a big challenge. When antennas sample the visibility function, they do so incompletely—some spatial frequencies are not sampled due to the finite number of antennas and their physical arrangement. This incomplete sampling results in artifacts in the reconstructed image, often called the "dirty image."
+          Converting interferometer data into a recognizable image is a big challenge. When antennas sample the visibility function (which is the Fourier transform of the sky's brightness distribution), they do so incompletely—some spatial frequencies are not sampled due to the finite number of antennas and their physical arrangement. This makes this an ill-posed inverse problem. This incomplete sampling results in artifacts in the reconstructed image, often called the "dirty image."
+          <br><br>
+          Mathematically speaking, the dirty image is the true sky image convolved with a dirty beam. This dirty beam represents the artifacts and sidelobes due to the unsampled frequencies.
           <br><br>
           Astronomers use sophisticated reconstruction algorithms to address this problem, with CLEAN being one of the most popular. Developed by Jan Högbom in 1974, CLEAN works on the principle that most astronomical images can be represented as a collection of point sources. 
           <br><br>
@@ -198,6 +200,8 @@
           </ol>
           <br>
           The final "CLEAN image" is constructed by convolving the recorded points with an idealized beam pattern and adding back residual noise. Our tool allows you to adjust CLEAN parameters and see the effect immediately.
+          <br><br>
+          Beyond CLEAN, there are other algorithms as well, such as regularized maximum likelihood estimation and Bayesian inference.
         </div>
         
         <div class="columns is-centered has-text-centered">
@@ -209,6 +213,8 @@
           The next technological evolution in radio interferometry is to take arrays out into space. Concepts like the projected Black Hole Explorer would locate radio telescopes in low Earth orbit, augmented by ground stations to provide unprecedented baselines and resolution.
           <br><br>
           Space-based interferometry possesses certain major advantages, including baselines that are larger than Earth's diameter and observation of frequency bands masked by Earth's atmosphere. Our program specifically includes the capability of simulating satellite-based telescopes such that one can analyze the influence of orbital parameters on image quality.
+          <br><br>
+          Ultimately, as arrays grow larger, interferometry will allow for more finer details to be unlocked.
           <br><br>
           <div class="columns is-centered">
             <div class="column is-8">
